@@ -1,0 +1,38 @@
+extends layout
+
+block content 
+    .container.box
+        .box.w3-card-8
+            .box.w3-container
+                h3 #{student.fullName}  details
+                img(src=`/image/${student.photo || 'img.png'}`, style="width:85px")
+                ul.w3-ul
+                    li Name: #{student.fullName}
+                    li Email: #{student.email}
+                    li Gender: #{student.gender}
+                    li Date of Birth: #{student.dateOfBirth}
+                    li Home Town: #{student.homeTown} 
+                    li State Of Origin: #{student.stateOfOrigin}
+                    li Local Govt: #{student.lga}
+                    li Address: #{student.address}
+                    li School: #{student.school}
+                    li Department: #{student.department}
+                    li Course: #{student. course}
+                       
+               
+                p
+                        button.w3-btn.w3-green 
+                            a(href='/student/'+ student._id +'/edit') EDIT                         
+                        button.w3-btn.w3-red#delete   
+                            a#del(href="#", data-id= student._id)  DELETE      
+
+  
+  
+   
+            
+
+
+
+
+
+

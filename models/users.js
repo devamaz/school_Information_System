@@ -22,11 +22,11 @@ const userSchema = mongoose.Schema({
   homeTown: String,
   stateOfOrigin: String,
   lga: String,
+  address: String,  
   school: String,
   department: String,
   course: String,
-  address: String,
- 
+  photo: String
 });
 
 module.exports = mongoose.model('User', userSchema);

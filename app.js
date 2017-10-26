@@ -39,6 +39,9 @@ app.use(session({
 // Express Validator Middleware
 app.use(validator());
 
+//haddle flash messages
+app.use(flash());
+
 // handle our own routes!
 app.use('/', routes);
 
@@ -47,6 +50,11 @@ app.use((req, res, next) => {
   const err = new Error(' Page Not Found');
   err.status = 404;
   next(err);
+});
+
+// flash local variables
+app.use((req, res, next) => {
+  res.locals.flashs = req.flash();
 });
 
 //erroe on dev

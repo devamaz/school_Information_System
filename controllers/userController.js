@@ -2,13 +2,21 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 
+exports.home=(req, res)=>{
+    res.render('index');
+}
+
 //view all students
-exports.home = (req, res) => {
-    User.find({}, (err, data) =>{
+exports.students = (req, res) => {
+    User.find({}, (err, student) =>{
         if(err){
-            console.log('you are in trouble')
+            console.log(err)
         }else{
-            res.json(data)
+            res.render('student', {
+                tittle:'List of all student',
+                students: student
+              });
+            
         }
     });
 }
@@ -16,19 +24,28 @@ exports.home = (req, res) => {
 
 // view single student
 exports.student = (req, res) =>{
-    User.findById(req.params.id, (err, data) =>{
+    User.findById(req.params.id, (err, student) =>{
         if(err){
-            console.log('you are in trouble')
+            console.log(err)
         }else{
-            res.json(data)
+            res.render('studentInfo', {
+                student
+            });    
         }
     })
 }
 
 
 //create user
+exports.studentRegistration = (req, res) =>{
+    res.render('registerStudent',{
+        tittle:'Register Student'
+    });
+}
+
 exports.registerStudent = (req, res)=> {
-    const fullName = req.body.fullName,
+    const photo = req.body.photo,
+          fullName = req.body.fullName,
           email = req.body.email,
           gender = req.body.gender,
           dateOfBirth = req.body.dateOfBirth,
@@ -39,6 +56,7 @@ exports.registerStudent = (req, res)=> {
           school = req.body.school,
           department = req.body.department,
           course = req.body.course;
+          
         
     req.checkBody('fullName', 'Name is required').notEmpty();
     req.checkBody('email', 'Email is required').notEmpty();
@@ -53,15 +71,22 @@ exports.registerStudent = (req, res)=> {
     req.checkBody('department', 'Department is required').notEmpty();
     req.checkBody('course', 'Course is required').notEmpty();
 
-    req.sanitize(req.body).escape();
+    // req.sanitize(req.body).escape();
     
 
     // check for validation error
     let errors = req.validationErrors();
         if(errors){
-            res.send(errors);
+            //  res.send(errors);
+            req.flash('error',  errors.map(err => err.msg));
+            res.render('registerStudent',{
+                tittle: 'Registration Error', 
+                body: req.body,
+                flashes: req.flash()
+            })
         } else {
             let newUser = new User({
+                photo,
                 fullName,
                 email,
                 gender,
@@ -72,15 +97,18 @@ exports.registerStudent = (req, res)=> {
                 address,
                 school,
                 department,
-                course
+                course,
+                
             });
-    
+        
         newUser.save((err) =>{
             if(err){
-                console.log(err);
+                res.render('registerStudent', { 
+                    tittle: 'Registration Error', 
+                    errors
+                });
                 return;
                 } else {
-                console.log(yay);
                 res.redirect('/');
                 }
             });
@@ -90,11 +118,14 @@ exports.registerStudent = (req, res)=> {
 
 // Edit student info
 exports.editStudent = (req, res) =>{
-    User.findById(req.params.id, (err, data) =>{
+    User.findById(req.params.id, (err, student) =>{
         if(err){
             console.log('you are in trouble')
         }else{
-            res.json(data)
+            res.render('editStudent',{
+                tittle: 'Edit Student Information',
+                student
+            });
         }
     })
 }
@@ -126,7 +157,6 @@ exports.updateStudent = (req, res)=> {
     req.checkBody('department', 'Department').notEmpty();
     req.checkBody('course', 'Course').notEmpty();
     
-    
     // check for validation error
     let errors = req.validationErrors();
    
@@ -137,14 +167,13 @@ exports.updateStudent = (req, res)=> {
         let query = {_id:req.params.id}  
   
     User.update( query, req.body, (err) =>{
-        // console.log(user.stateOfOrigin)
+       
         if(err){
             console.log(err);
               return;
             } else {
-        
-              res.send('Yayyyyy')
-            //   res.redirect('/');
+            req.flash('success', 'Update Succcessful');
+            res.redirect('/student');
             }
           });
         };
@@ -153,20 +182,13 @@ exports.updateStudent = (req, res)=> {
 
     //delete student info
     exports.deleteStudent = (req, res)=> {
-     
-        
-            let query = {_id:req.params.id}  
-      
+        let query = {_id:req.params.id}   
         User.remove(query, (err) =>{
-            // console.log(user.stateOfOrigin)
             if(err){
                 console.log(err);
                   return;
-                } else {
-            
-                  res.send('yay')
-                //   res.redirect('/');
-                }
+                } 
+
               });
-            };
+        };
         
