@@ -6,27 +6,42 @@ html
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         link(rel='stylesheet' href='/style/w3.css')
-        link(rel='stylesheet' href='/publics/style/main.css')
+        link(rel='stylesheet' href='/style/main.css')
         
-     
-                        
 
         title School Information System
     body
         block header
            
-            .w3-bar.w3-border.w3-green.w3-large
-                a.w3-bar-item.w3-button(href="/") HOME
-                a.w3-bar-item.w3-button.w3-hover-none.w3-text-grey.w3-hover-text-white(href="#") Link 1
-                a.w3-bar-item.w3-button.w3-hover-none.w3-text-grey.w3-hover-text-white(href="#") Link 2
-                a.w3-bar-item.w3-button.w3-hover-none.w3-text-grey.w3-hover-text-white(href="#") Link 3
+            .w3-bar.w3-border.w3-blue.w3-large
+                a.w3-bar-item.w3-button(href="/") S I S
+                a.w3-bar-item.w3-button.w3-hover-none.w3-text-grey.w3-hover-text-white(href="/student") View records
+                a.w3-bar-item.w3-button.w3-hover-none.w3-text-grey.w3-hover-text-white(href="/register") Register
+        
+        block flashMessages
+            if locals.flashes
+                .container.box
+                    .flash-messages
+                        - const categories = Object.keys(locals.flashes)
+                        each category in categories
+                            each message in flashes[category]
+                                .flash(class=`flash--${category}`)
+                                    p.flash__text!= message
+                                    button.flash__remove(onClick="this.parentElement.remove()") &times;
+
+           
      
         block content
 
 
         block footer
-            .w3-container.w3-footer.w3-green.w3-bottom
-                p Design by Amaz-Tech
+            .w3-container.w3-footer.w3-blue.w3-bottom.w3-center  Copyright &copy; 2017.  Design by Amaz-Tech
+        
+        script(src="/javascript/main.js")
+        
+        
 
 
-    
+
+
+

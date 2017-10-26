@@ -1,0 +1,52 @@
+extends layout 
+
+
+block content
+	.w3-container
+		h2 #{tittle}
+		.w3-card-4.box
+		
+
+			.w3-container.w3-blue
+				h2 Update Form
+			form.w3-container(action=`/student/edit/${student._id || ''}` method="POST")
+				p
+					input.w3-input(type="text", name="fullName", value= student.fullName )
+					label Full Name
+				p
+					input.w3-input(type="email" name="email", value= student.email )
+					label Email
+				p
+					select.w3-select(type="text", name="gender")
+						option(value="" disabled selected)  Choose your option
+						option(value="male") Male
+						option(value="female") Female
+					label gender
+				p
+					input.w3-input(type="date" name="dateOfBirth")
+					label Date Of Birth
+				p
+					input.w3-input(type="text", name="homeTown", value= student.homeTown )
+					label Home Town
+				p
+					input.w3-input(type="text" name="stateOfOrigin", value= student.stateOfOrigin )
+					label State of Origin
+				p
+					input.w3-input(type="text", name="lga", value= student.lga )
+					label Local Govt.
+				p
+					textarea.w3-input(cols="30", rows="5" name="address") #{student.address}
+					label Address
+				p
+					input.w3-input(type="text", name="school", value= student.school )
+					label School
+				p
+					input.w3-input(type="text" name="department", value= student.department )
+					label Department
+				p
+					input.w3-input(type="text" name="course", value= student.course )
+					label Course
+				p
+					input.w3-btn.w3-border(type="submit" value="UPDATE")  
+				br
+				

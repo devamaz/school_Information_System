@@ -1,0 +1,17 @@
+extends layout 
+
+
+block content
+    .container.box
+        h2= tittle
+        p.w3-center click on student name to view student information
+        ul.w3-ul
+            each student in students
+                a(href="/student/"+student._id)
+                    li.w3-bar
+                        img.w3-bar-item.w3-rounded(src=`/image/${student.photo || 'img.png'}`, style="width:85px")
+                        .w3-bar-item
+                            span.w3-large 
+                                h5= student.fullName
+                            span School of #{student.school}
+                            

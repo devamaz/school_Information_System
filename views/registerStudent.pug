@@ -1,0 +1,55 @@
+extends layout 
+
+
+block content
+	.w3-container
+		h2 #{tittle}
+		.w3-card-4.box
+		
+
+			.w3-container.w3-blue
+				h2 Registration Form
+			form.w3-container(action="/register", method="POST", enctype="multipart/form-data")
+				p
+					label Passport
+						input.w3-input(type="file", name="photo" id="photo" accept="image/png, image/jpg, image/jpeg")
+				p
+					input.w3-input(type="text", name="fullName", placeholder="Please enter your Full Name")
+					label Full Name
+				p
+					input.w3-input(type="email" name="email", placeholder="Please enter your e-mail")
+					label Email
+				p
+					select.w3-select(type="text", name="gender")
+						option(value="" disabled selected)  Choose your option
+						option(value="male") Male
+						option(value="female") Female
+					label gender
+				p
+					input.w3-input(type="date" name="dateOfBirth")
+					label Date Of Birth
+				p
+					input.w3-input(type="text", name="homeTown", placeholder="Please enter Home Town")
+					label Home Town
+				p
+					input.w3-input(type="text" name="stateOfOrigin", placeholder="Please enter State Of Origin")
+					label State of Origin
+				p
+					input.w3-input(type="text", name="lga", placeholder="Please enter Local Gov't ")
+					label Local Govt.
+				p
+					textarea.w3-input(cols="30", rows="5" name="address")
+					label Address
+				p
+					input.w3-input(type="text", name="school", placeholder="Please provide School")
+					label School
+				p
+					input.w3-input(type="text" name="department", placeholder="Please enter department")
+					label Department
+				p
+					input.w3-input(type="text" name="course", placeholder="Please enter course ")
+					label Course
+				p
+					input.w3-btn.w3-border(type="submit" value="REGISTER")  
+				br
+				
