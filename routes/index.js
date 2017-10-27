@@ -24,7 +24,11 @@ router.post('/register',
 
 //edit student info
 router.get('/student/:id/edit', userController.editStudent);
-router.post('/student/edit/:id', userController.updateStudent);
+router.post('/student/edit/:id', 
+    imageController.upload, 
+    imageController.resize, 
+    userController.updateStudent
+);
 
 //delete student info
 router.delete('/student/delete/:id', userController.deleteStudent);
