@@ -11,6 +11,6 @@ function del() {
   })
   .then((res)=> res.json)
   .catch((err) => {throw err});
-  window.location.href='/student';
+  window.location.href='/';
 }
 

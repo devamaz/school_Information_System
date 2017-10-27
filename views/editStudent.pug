@@ -9,7 +9,10 @@ block content
 
 			.w3-container.w3-blue
 				h2 Update Form
-			form.w3-container(action=`/student/edit/${student._id || ''}` method="POST")
+			form.w3-container(action=`/student/edit/${student._id || ''}` method="POST" enctype="multipart/form-data")
+				p
+					img(src=`/image/${student.photo || 'img.png'}`, style="width:85px")
+					input.w3-input(type="file", name="photo" id="photo" accept="image/png, image/jpg, image/jpeg")
 				p
 					input.w3-input(type="text", name="fullName", value= student.fullName )
 					label Full Name

@@ -4,7 +4,7 @@ extends layout
 block content
     .container.box
         h2= tittle
-        p.w3-center click on student name to view student information
+        p.w3-center Click on student to view and update student information.
         ul.w3-ul
             each student in students
                 a(href="/student/"+student._id)

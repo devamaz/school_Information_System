@@ -21,7 +21,6 @@ exports.students = (req, res) => {
     });
 }
 
-
 // view single student
 exports.student = (req, res) =>{
     User.findById(req.params.id, (err, student) =>{
@@ -32,9 +31,8 @@ exports.student = (req, res) =>{
                 student
             });    
         }
-    })
+    });
 }
-
 
 //create user
 exports.studentRegistration = (req, res) =>{
@@ -77,7 +75,7 @@ exports.registerStudent = (req, res)=> {
     // check for validation error
     let errors = req.validationErrors();
         if(errors){
-            //  res.send(errors);
+
             req.flash('error',  errors.map(err => err.msg));
             res.render('registerStudent',{
                 tittle: 'Registration Error', 
@@ -132,7 +130,8 @@ exports.editStudent = (req, res) =>{
 
 //Update student info
 exports.updateStudent = (req, res)=> {
-    const fullName = req.body.fullName,
+    const photo = req.body.photo,
+          fullName = req.body.fullName,
           email = req.body.email,
           gender = req.body.gender,
           dateOfBirth = req.body.dateOfBirth,
@@ -164,10 +163,9 @@ exports.updateStudent = (req, res)=> {
       res.send(errors);
     } else {
 
-        let query = {_id:req.params.id}  
-  
-    User.update( query, req.body, (err) =>{
-       
+        let query = {_id:req.params.id}  ;
+     User.update( query, req.body, (err) =>{
+
         if(err){
             console.log(err);
               return;
@@ -179,7 +177,6 @@ exports.updateStudent = (req, res)=> {
         };
     }
 
-
     //delete student info
     exports.deleteStudent = (req, res)=> {
         let query = {_id:req.params.id}   
@@ -188,7 +185,6 @@ exports.updateStudent = (req, res)=> {
                 console.log(err);
                   return;
                 } 
-
-              });
-        };
+            });
+    }
         
